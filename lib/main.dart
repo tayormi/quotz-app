@@ -1,12 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cubit/flutter_cubit.dart';
-import 'package:quotz/cubit/quote_cubit.dart';
-import 'package:quotz/repository/quote_repository.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quotz/screens/home.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,10 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: CubitProvider(
-          create: (BuildContext context) =>
-              QuoteCubit(quoteRepository: QuoteRepository(Dio())),
-          child: HomeScreen()),
+      home: HomeScreen(),
     );
   }
 }

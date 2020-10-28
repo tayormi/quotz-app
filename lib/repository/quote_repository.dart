@@ -1,19 +1,11 @@
-import 'package:dio/dio.dart';
 import 'package:quotz/models/quote_model.dart';
+import 'package:quotz/services/quote_apiservice.dart';
 
 class QuoteRepository {
-  final Dio client;
+  QuoteService quoteService = QuoteService();
 
-  QuoteRepository(this.client);
-  Future<Contents> getQuotes() async {
-    try {
-      final url = "https://quotes.rest/qod?language=en";
-
-      final response = await client.get(url);
-      QuoteModel quoteModel = QuoteModel.fromJson(response.data);
-      return quoteModel.contents;
-    } catch (e) {
-      throw e;
-    }
+  Future<List<QuoteModel>> getQuote() async {
+    final quotes = await quoteService.getQuotes();
+    return quotes;
   }
 }
